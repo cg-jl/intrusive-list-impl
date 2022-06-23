@@ -140,5 +140,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn with_cons() {}
+    fn it_works() {
+        let mut list = IntrusiveList::default();
+        list.with_cons(&mut 1, |list| {
+            list.with_cons(&mut 2, |list| {
+                list.with_cons(&mut 3, |list| {
+                    assert_eq!(list.iter().copied().collect::<Vec<_>>(), vec![3, 2, 1]);
+                })
+            })
+        })
+    }
 }
